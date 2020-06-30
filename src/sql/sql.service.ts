@@ -55,9 +55,9 @@ export class SqlService {
   async executeProcedure(procedureName: string, inputParameters: Parameter[]) {
     try {
       await this.pool1Connect;
-      var request = new Request(this.pool1);
+      const request = new Request(this.pool1);
       this.mapInputParameters(request, inputParameters);
-      var result = await request.execute(procedureName);
+      const result = await request.execute(procedureName);
       return result.recordset;
     } catch (err) {
       console.log(
@@ -73,10 +73,10 @@ export class SqlService {
     try {
       await this.pool1Connect;
 
-      var request = new Request(this.pool1);
+      const request = new Request(this.pool1);
       this.mapInputParameters(request, inputParameters);
 
-      var result = await request.query(query);
+      const result = await request.query(query);
       return result;
     } catch (err) {
       console.log(

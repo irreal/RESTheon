@@ -6,6 +6,6 @@ import { BasicAuthStrategy } from "./basic-auth.strategy";
 
 @Module({
   imports: [UsersModule, PassportModule],
-  providers: [AuthService, BasicAuthStrategy],
+  providers: [AuthService, BasicAuthStrategy]
 })
 export class AuthModule {}

@@ -15,7 +15,7 @@ async function bootstrap() {
     .setVersion(config.get<string>("OPENAPI_VERSION"))
     .addTag(config.get<string>("OPENAPI_TAG"))
     .addBasicAuth({
-      type: "http",
+      type: "http"
     })
     .build();
   const document = SwaggerModule.createDocument(app, options);

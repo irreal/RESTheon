@@ -16,36 +16,39 @@ export class SqlService {
       database: config.get("DB_DATABASE"),
     };
     console.log("Connecting to SQL with: ", { ...dbConfig, password: "****" });
-    this.pool1 = new ConnectionPool({
+    const connPoolOptions = {
       ...dbConfig,
       options: { encrypt: false, enableArithAbort: true },
-    });
-
-    this.connectToSql();
+    };
+    this.pool1 = new ConnectionPool(connPoolOptions);
   }
 
-  connectToSql() {
-    this.pool1Connect = (this.pool1.connect((err) => {
-      if (!err) {
-        console.log("Connected to sql server!");
-        return;
+  delay(ms) {
+    return new Promise((res) => setTimeout(res, ms));
+  }
+
+  async connectToSql() {
+    return new Promise(async (resolve, reject) => {
+      for (let i = 0; i < 5; i++) {
+        try {
+          console.log("trying to connect");
+          await this.pool1.connect();
+          console.log("Connected to sql server!");
+          resolve();
+          return;
+        } catch (err) {
+          console.log("Failed to connect to sql server.", err);
+        }
+        this.pool1.close();
+        if (i < 4) {
+          console.log("Retrying in 5 seconds");
+          await this.delay(5000);
+        }
       }
-      this.pool1.close();
-      this.retryConnection(err);
-    }) as any) as Promise<void>;
-  }
-
-  retryConnection(err) {
-    console.log("Failed to connect to sql server.", err);
-    this.failCount++;
-    if (this.failCount > 5) {
-      console.log("Could not connect to sql 5 times, aborting app");
-      throw new Error("Could not connect to sql server");
-    }
-    console.log("Retrying in 5 seconds");
-    setTimeout(() => {
-      this.connectToSql();
-    }, 5000);
+      reject(
+        "Could not connect to the sql server in 5 tries, check env configuration"
+      );
+    });
   }
 
   async executeProcedure(procedureName, inputParameters) {

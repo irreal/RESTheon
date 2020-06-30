@@ -31,11 +31,13 @@ Apply the authentication as needed using
 
 either on a specific endpoint or on the entire controller
 
-## Installation
+## Installation and setup
 
 ```bash
 npm install
 ```
+
+copy the .env.example file into .env and edit the values as needed
 
 ## Running the app
 
@@ -62,3 +64,19 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Customization
+
+Look at the two provided controllers. One uses the database service directly.
+The other one uses a helper service that does the DB stuff to decouple responsibilites away from the controller
+
+Choose which ever approach works best for you.
+
+create controllers and services using the nest cli.
+
+```bash
+npx nest g service ServiceName
+npx nest g controller ControllerName
+```
+
+And fill out implementations by looking at provided examples

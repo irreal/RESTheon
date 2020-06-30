@@ -108,3 +108,7 @@ export function Parameter(
 ): Parameter {
   return { name, type, value };
 }
+
+export function Parameters(params: any): Parameter[] {
+  return Object.keys(params).map((key) => Parameter(key, params[key]));
+}

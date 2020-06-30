@@ -14,18 +14,18 @@ export class SqlService {
       user: config.get("DB_USERNAME"),
       password: config.get("DB_PASSWORD"),
       server: config.get("DB_SERVER"),
-      database: config.get("DB_DATABASE"),
+      database: config.get("DB_DATABASE")
     };
     console.log("Connecting to SQL with: ", { ...dbConfig, password: "****" });
     const connPoolOptions = {
       ...dbConfig,
-      options: { encrypt: false, enableArithAbort: true },
+      options: { encrypt: false, enableArithAbort: true }
     };
     this.pool1 = new ConnectionPool(connPoolOptions);
   }
 
   delay(ms: number) {
-    return new Promise((res) => setTimeout(res, ms));
+    return new Promise(res => setTimeout(res, ms));
   }
 
   async connectToSql() {
@@ -92,7 +92,7 @@ export class SqlService {
     if (!inputParameters) {
       return;
     }
-    inputParameters.forEach((p) => {
+    inputParameters.forEach(p => {
       if (p.type !== undefined) {
         request.input(p.name, p.type, p.value);
       }
@@ -111,6 +111,6 @@ export function Parameter(
 
 export function Parameters(params: any): Parameter[] {
   return Object.keys(params)
-    .filter((key) => params[key] !== undefined)
-    .map((key) => ({ name: key, value: params[key] }));
+    .filter(key => params[key] !== undefined)
+    .map(key => ({ name: key, value: params[key] }));
 }

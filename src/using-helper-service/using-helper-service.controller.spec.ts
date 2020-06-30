@@ -8,7 +8,7 @@ describe("UsingHelperService Controller", () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsingHelperServiceController],
-      providers: [{ provide: SpecificPantheonService, useValue: {} }],
+      providers: [{ provide: SpecificPantheonService, useValue: {} }]
     }).compile();
 
     controller = module.get<UsingHelperServiceController>(

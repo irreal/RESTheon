@@ -7,7 +7,7 @@ describe("AppController", () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [],
+      providers: []
     }).compile();
 
     appController = app.get<AppController>(AppController);
@@ -16,7 +16,7 @@ describe("AppController", () => {
   describe("root", () => {
     it('should return "Hello World!"', () => {
       expect(appController.getInfo()).toEqual({
-        msg: "RESTheon is running :)",
+        msg: "RESTheon is running :)"
       });
     });
   });

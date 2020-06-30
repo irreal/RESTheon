@@ -12,9 +12,9 @@ describe("SqlService", () => {
       imports: [
         ConfigModule.forRoot({
           envFilePath: ".unit-test.env",
-          isGlobal: true,
-        }),
-      ],
+          isGlobal: true
+        })
+      ]
     }).compile();
 
     service = module.get<SqlService>(SqlService);

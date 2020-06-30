@@ -8,7 +8,7 @@ describe("DirectSql Controller", () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [DirectSqlController],
-      providers: [{ provide: SqlService, useValue: {} }],
+      providers: [{ provide: SqlService, useValue: {} }]
     }).compile();
 
     controller = module.get<DirectSqlController>(DirectSqlController);

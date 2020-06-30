@@ -9,8 +9,8 @@ describe("SpecificPantheonService", () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SpecificPantheonService,
-        { provide: SqlService, useValue: {} },
-      ],
+        { provide: SqlService, useValue: {} }
+      ]
     }).compile();
 
     service = module.get<SpecificPantheonService>(SpecificPantheonService);

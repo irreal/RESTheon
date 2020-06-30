@@ -110,5 +110,7 @@ export function Parameter(
 }
 
 export function Parameters(params: any): Parameter[] {
-  return Object.keys(params).map((key) => Parameter(key, params[key]));
+  return Object.keys(params)
+    .filter((key) => params[key] !== undefined)
+    .map((key) => ({ name: key, value: params[key] }));
 }

@@ -1,8 +1,10 @@
 import { Controller, Get, Query, UseGuards } from "@nestjs/common";
 import { SqlService, Parameter } from "../sql/sql.service";
 import { AuthGuard } from "@nestjs/passport";
+import { ApiBasicAuth } from "@nestjs/swagger";
 
-@UseGuards(AuthGuard("local")) // this example applies the guard (requires user authentication) for this entire controller
+@UseGuards(AuthGuard("basic")) // this example applies the guard (requires user authentication) for this entire controller
+@ApiBasicAuth()
 @Controller("direct-sql")
 export class DirectSqlController {
   constructor(private sql: SqlService) {}

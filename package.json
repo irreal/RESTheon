@@ -19,10 +19,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
+    "prepare": "npm run build",
+    "preversion": "npm test && npm run lint && npm run build",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
+    "prepublishOnly": "npm test && npm run lint",
     "hash:create": "node create-hash.js"
   },
   "dependencies": {

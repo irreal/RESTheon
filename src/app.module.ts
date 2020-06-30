@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
 import { ConfigModule } from "@nestjs/config";
-import { SqlService } from './sql/sql.service';
+import { SqlService } from "./sql/sql.service";
+import { DirectSqlController } from "./direct-sql/direct-sql.controller";
 
 @Module({
   imports: [
@@ -10,7 +10,7 @@ import { SqlService } from './sql/sql.service';
       isGlobal: true,
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService, SqlService],
+  controllers: [AppController, DirectSqlController],
+  providers: [SqlService],
 })
 export class AppModule {}

@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { SpecificPantheonService } from './specific-pantheon/specific-pantheon.service';
+import { SqlService } from './sql/sql.service';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -8,7 +10,11 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [
+        AppService,
+        { provide: SqlService, useValue: {} },
+        { provide: SpecificPantheonService, useValue: {} },
+      ],
     }).compile();
 
     appController = app.get<AppController>(AppController);

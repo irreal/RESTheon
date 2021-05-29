@@ -5,6 +5,7 @@ import { SqlService } from './sql/sql.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('V1');
   const config = app.get(ConfigService);
   const sql = app.get(SqlService);
   try {

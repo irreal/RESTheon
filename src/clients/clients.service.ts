@@ -8,8 +8,8 @@ export class ClientsService {
   private readonly clients = [
     {
       systemId: 1,
-      clientId: 'livona',
-      clientSecret: 'test123',
+      clientId: 'livonauat@nqframework.com',
+      clientSecret: 'PQeX&HVHcF4eM?tM9LnL%J!44@GeKTGy',
     },
   ];
 

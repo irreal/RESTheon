@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConnectionPool, Request, ISqlType } from 'mssql';
 import { ConfigService } from '@nestjs/config';
-import { Parameter } from './parameter';
+import { OutputParameter, Parameter } from './parameter';
 
 @Injectable()
 export class SqlService {
@@ -57,12 +57,18 @@ export class SqlService {
     });
   }
 
-  async executeProcedure(procedureName: string, inputParameters: Parameter[]) {
+  async executeProcedure(
+    procedureName: string,
+    inputParameters: Parameter[],
+    outputParameters?: OutputParameter[],
+  ) {
     try {
       await this.pool1Connect;
       const request = new Request(this.pool1);
       this.mapInputParameters(request, inputParameters);
+      this.mapOutputParameters(request, outputParameters);
       const result = await request.execute(procedureName);
+      console.log('ceo result je', result);
       return result.recordset;
     } catch (err) {
       console.log(
@@ -74,13 +80,17 @@ export class SqlService {
     }
   }
 
-  async executeQuery(query: string, inputParameters: Parameter[]) {
+  async executeQuery(
+    query: string,
+    inputParameters: Parameter[],
+    outputParameters?: OutputParameter[],
+  ) {
     try {
       await this.pool1Connect;
 
       const request = new Request(this.pool1);
       this.mapInputParameters(request, inputParameters);
-
+      this.mapOutputParameters(request, outputParameters);
       const result = await request.query(query);
       return result;
     } catch (err) {
@@ -102,6 +112,17 @@ export class SqlService {
         request.input(p.name, p.type, p.value);
       }
       request.input(p.name, p.value);
+    });
+  }
+  mapOutputParameters(request: Request, outputParameters: OutputParameter[]) {
+    if (!outputParameters) {
+      return;
+    }
+    outputParameters.forEach((p) => {
+      if (p.type !== undefined) {
+        request.output(p.name, p.type);
+      }
+      request.output(p.name);
     });
   }
 }
